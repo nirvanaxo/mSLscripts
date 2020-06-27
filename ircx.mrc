@@ -28,7 +28,7 @@ raw 818:*:{
 }
 raw 804:*:{
   if ($5 == 0) { var %time = no-expiration }
-  if ($5 > 1) { var %time = $4 $+ min }
+  if ($5 > 1) { var %time = $5 $+ secs }
   if ($me ison $2) { echo -t $2 * ACL: $3 %time }
 }
 
