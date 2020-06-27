@@ -1,3 +1,12 @@
+on *:load:{
+  var %tg = $script | var %tgt = $gettok(%tg,0,$asc(\))
+  echo -ta Loaded: $gettok(%tg,%tgt,$asc(\))
+  echo -ta IRCx: /PROP #channel adminkey|opkey|voicekey value
+  echo -ta IRCx: /PROP #channel (See channel properties)
+  echo -ta IRCx: /ACCESS #channel ADD|DEL OP *!*@host 
+  echo -ta IRCx: /ACCESS #channel LIST|CLEAR
+  echo -ta IRCx: Keep IRC rockin.
+}
 raw PROP:*:{
   if ($me ison $1) { echo -t $1 * $nick set property $2- }
 }
