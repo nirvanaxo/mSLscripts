@@ -62,7 +62,7 @@ on *:admin:#:{
     ;;if your access isnt in the list it'll add yourself
     hadd -mu5 add.axs $chan 1 
     .timeraccess. $+ $chan -m 1 250 access $chan list
-    if ($address($me,0) != $null) { .timeraccess. $+ $chan -m 1 250 access $chan add admin $address($me,0) }
+    if ($address($me,0) != $null) { .timeraccessadmin. $+ $chan -m 1 250 access $chan add admin $address($me,0) }
 
   }
 }
@@ -77,7 +77,7 @@ on *:op:#:{
     ;;if your access isnt in the list it'll add yourself
     hadd -mu5 add.axs $chan 1 
     .timeraccess. $+ $chan -m 1 250 access $chan list
-    if ($address($me,0) != $null) { .timeraccess. $+ $chan -m 1 250 access $chan add op $address($me,0) }
+    if ($address($me,0) != $null) { .timeraccessop. $+ $chan -m 1 250 access $chan add op $address($me,0) }
 
   }
 }
