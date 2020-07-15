@@ -31,12 +31,16 @@ raw 804:*:{
   if ($hget(noacllist,$2) != $null) { halt }
   if ($5 == 0) { var %time = no-expiration }
   if ($5 > 1) { var %time = $5 $+ secs }
-  if ($me ison $2) { echo -t $2 $prefixsys ACL: $3 $4 %time }
+  if ($4 == $+($chr(36),o)) { var %info = (effects all opers) }
+  if ($left($4,2) == $+($chr(36),z)) { var %info = (CERTIFICATE for $fingerprint($right($4,-3)) $+ ) }
+  if ($me ison $2) { echo -t $2 $prefixsys ACL: $3 $4 %info %time  }
 }
 raw 005:*:{
   if (IRCX isin $1-) {
     hadd -m $server IRCX 1
     .timer 1 1 isircx
+    ;get our certificate if we have one, for access
+    whois $me
   }
 }
 alias isircx {
@@ -160,8 +164,10 @@ alias keys {
 raw 276:*has*client*certificate*fingerprint*:{
   echo -a RAW $1-
   hadd -m fingerprint $2 $7
+  hadd -m fingerprint $7 $2 $hget(fingerprint,$7)
 }
 alias fingerprint {
   if ($hget(fingerprint,$1) != $null) { return $hget(fingerprint,$1) }
   else { return $null }
 }
+raw 368:*:{ echo -a $1- }
